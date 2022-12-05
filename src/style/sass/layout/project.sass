@@ -1,0 +1,64 @@
+.project
+    height: 150px
+    width: 275px
+    border: 1px solid grey
+    border-radius: 10px
+    float: left
+    box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6)
+    margin: 20px
+    background-color: #e3e3e3
+    span
+        display: block
+        font: bold 12pt sans-serif
+        margin: 15px 0 0 15px
+
+.project.is-create-project
+    width: 0
+
+
+.project:hover
+    box-shadow: 0px 5px 5px 2px rgba(34, 60, 80, 0.2) inset
+    
+.projectCardTaskBox
+    margin-top: 10px
+    div
+        span
+            width: 8px
+            height: 8px
+            float: left
+            border-radius: 50%
+            margin: 0 0 0 25px
+        p
+            float: left
+            text-align: center
+            margin-left: 5px
+            font: bold 10pt sans-serif
+
+.projectCardDoneTask, .projectCardDevelopmentTask, .projectCardQueueTask
+        width: 100%
+        height: 25px
+        display: flex
+        align-items: center
+
+.projectCardDoneTask
+    span
+        background-color: green
+.projectCardDevelopmentTask
+    span
+        background-color: orange
+.projectCardQueueTask
+    span
+        background-color: red
+
+.btnTrashProject
+    width: 25px
+    height: 25px 
+    background-image: url("https://cdn-icons-png.flaticon.com/512/1214/1214428.png")
+    background-size: contain
+    float: right
+    margin-right: 10px
+    border: 1px solid black
+    border-radius: 5px
+
+.btnTrashProject:hover
+    border: 1px dashed black
