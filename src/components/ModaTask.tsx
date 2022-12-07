@@ -20,7 +20,7 @@ const ModalTask: React.FC<propsModalTask> = ({taskId}) => {
         <div className="modalWindowTask">
             Name: <input type="text" onChange={(e) => setData({...data, ...{name: e.target.value}})} value={data.name}/>
             Description: <input type="text" onChange={(e) => setData({...data, ...{description: e.target.value}})} value={data.description}/>
-            <button onClick={()=> {TaskUpdateAction(project, taskId, data); ProjectSaveAction();}}></button>
+            <button onClick={()=> {TaskUpdateAction(project, data, data); ProjectSaveAction();}}></button>
             Date Start: <span>{`${dateStart.getDate()}/${dateStart.getMonth()}/${dateStart.getFullYear()}`}</span>
             {dateEnd !== undefined ? <span>{`${dateEnd.getDate()}/${dateEnd.getMonth()}/${dateEnd.getFullYear()}`}</span> : null}
             Priority: <span>{data.priority}</span>
@@ -28,7 +28,7 @@ const ModalTask: React.FC<propsModalTask> = ({taskId}) => {
                 {data.underTask.map(task=> <div>{task.name}</div>)}
             </div>
             Comments: <div>
-                    
+
             </div>
         </div>
     )

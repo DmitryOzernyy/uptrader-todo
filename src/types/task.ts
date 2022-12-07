@@ -3,11 +3,13 @@ import { CommentList, CommentNode } from "./commentsTree";
 
 
 export interface TasksState {
-    project: ProjectType
+    project: ProjectType,
+    task: TaskType | undefined
 }
 
 export interface TaskType {
     id: number,
+    underTaskFlag: number,
     name: string,
     description: string,
     createDate: number,
@@ -24,20 +26,31 @@ export enum TasksActionTypes {
     TASKS_LOAD = 'TASK_LOAD',
     TASKS_UPDATE_STATUS = 'TASKS_UPDATE_STATUS',
     TASK_CREATE = 'TASK_CREATE',
-    TASK_UPDATE = 'TASK_UPDATE'
+    TASK_UPDATE = 'TASK_UPDATE',
+    TASK_WRITE = 'TASK_WRITE',
 }
 
 interface TaskLoadAction {
     type: TasksActionTypes.TASKS_LOAD;
-    payload: TasksState
+    payload: {
+        project: ProjectType,
+    }
 }
 
 interface TaskUpdateStatusAction {
     type: TasksActionTypes.TASKS_UPDATE_STATUS,
     payload: {
         project: ProjectType,
-        taskId: number,
+        task: TaskType,
         statusUpdate: number
+    }
+}
+
+interface TaskWriteAction {
+    type: TasksActionTypes.TASK_WRITE,
+    payload: {
+        project: ProjectType;
+        task: TaskType | undefined;
     }
 }
 
@@ -45,8 +58,9 @@ interface TaskUpdateAction {
     type: TasksActionTypes.TASK_UPDATE,
     payload: {
         project: ProjectType,
-        taskId: number,
+        task: TaskType,
         data: {
+            underTaskFlag?: number;
             name?: string,
             description?: string,
             priority?: number,
@@ -71,4 +85,5 @@ interface TaskCreateAction {
 export type TasksAction =   TaskLoadAction |
                             TaskCreateAction |
                             TaskUpdateStatusAction |
-                            TaskUpdateAction
+                            TaskUpdateAction | 
+                            TaskWriteAction

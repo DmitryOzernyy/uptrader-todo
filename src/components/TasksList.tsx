@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDrop } from 'react-dnd'
 import { useTypedSelector } from "../hooks/useTypeSelector"
 import Task from "./Task";
 import { useAction } from "../hooks/useAction";
 import ModalTask from "./ModaTask";
+import { TaskType } from "../types/task";
+
 
 
 const TaskQeueneStatus = [
@@ -19,23 +21,25 @@ const TaskQueneName = [
 ]
 
 interface ItemType {
-    taskId: number
+    task: TaskType
 }
 
-interface DustbinProps {
+interface propsTaskList {
     classNameIndex: number
 }
 
-const TaskQuene: React.FC<DustbinProps> = ({ classNameIndex }) => {
+const TaskQuene: React.FC<propsTaskList> = ({ classNameIndex }) => {
     const { project } = useTypedSelector(state => state.tasks);
     const { search } = useTypedSelector(state => state.search);
-    const { TaskUpdateAction, TaskUpdateStatusAction, ProjectSaveAction } = useAction();
-    
+    const { TaskUpdateAction, ModalWindowChangeTypeAction, ProjectSaveAction } = useAction();
+    useEffect(()=>{
+        ModalWindowChangeTypeAction(1);
+    }, [])
     const node = useRef(null);
     const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: "TASK",
-            drop: (item: ItemType, monitor) => { TaskUpdateAction(project, item.taskId, {status: classNameIndex}); ProjectSaveAction() },
+            drop: (item: ItemType, monitor) => { TaskUpdateAction(project, item.task, {status: classNameIndex}); ProjectSaveAction() },
             collect: (monitor) => {
                 return {
                     isOver: !!monitor.isOver(),
@@ -68,7 +72,7 @@ const TaskList: React.FC = () => {
     let status = -1;
 
     if (project === undefined)
-        return <div>Error to load task from project!</div>
+        return <div>Error to load tasks from project!</div>
 
     useEffect(() => {
         TasksLoadAction(project);

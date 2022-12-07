@@ -18,7 +18,7 @@ interface propsCommentsList {
 }
 
 interface propsCommentConainer {
-    taskId: number
+    task: TaskType
 }
 
 const Comment: React.FC<propsComment> = ({ setParent, comment }) => {
@@ -43,34 +43,31 @@ const CommentList: React.FC<propsCommentsList> = ({ setParent, comments, answer 
 
 }
 
-const CommentsContainer: React.FC<propsCommentConainer> = ({ taskId }) => {
+const CommentsContainer: React.FC<propsCommentConainer> = ({ task }) => {
     const [author, setAuthor] = useState("");
     const [comment, setComment] = useState("");
     const [parent, setParent] = useState(-1);
     const { project } = useTypedSelector(state => state.tasks)
-    const task = project.tasks.find(task => task.id === taskId);
     const { TaskUpdateAction, ProjectSaveAction } = useAction();
 
     if (task === undefined)
         return null;
     if (task.comments.comments === undefined && task.comments === undefined)
         return <div>Error load comments!</div>;
-
-    console.log(task.comments.comments);
     return (
-        <div className="commentList">
-            <input type="text" value={comment} onChange={e => setComment(e.target.value)}></input>
-            <input type="text" value={author} onChange={e => setAuthor(e.target.value)} />
-            <div onClick={() => setParent(-1)}>{parent}</div>
+        task.underTaskFlag === -1 ? <div className="commentList">
+            <input className="commentsListInputAuthor" placeholder="author" type="text" value={author} onChange={e => setAuthor(e.target.value)} />
+            <input className="commentsListInputComment" placeholder="text..." type="text" value={comment} onChange={e => setComment(e.target.value)} />
+            {parent !== -1 ? <span className="commentsParentAnswer" onClick={() => setParent(-1)}>{task.comments.findParent(parent)?.author}</span> : null}
             <div onClick={() => {
-                if(!comment.length)
+                if (!comment.length)
                     return alert("No text in comment!");
                 task.comments.add(parent, author.length ? author : "Unknown", comment);
-                TaskUpdateAction(project, taskId, {comments: task.comments});
+                TaskUpdateAction(project, task, { comments: task.comments });
             }}
-            >Отправить</div>
+            >Send</div>
             <CommentList setParent={setParent} comments={task.comments.comments} />
-        </div>
+        </div> : null
     )
 }
 

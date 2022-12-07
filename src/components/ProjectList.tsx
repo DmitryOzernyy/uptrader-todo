@@ -8,10 +8,11 @@ const ProjectList: React.FC = () => {
     const { projects } = useTypedSelector(state => state.project);
     const { search } = useTypedSelector(state => state.search);
     const { isVisible } = useTypedSelector(state => state.modal);
-    const { ProjectsLoadAction, TasksLoadAction } = useAction();
+    const { ProjectsLoadAction, TasksLoadAction, ModalWindowChangeTypeAction } = useAction();
     useEffect(() => {
         ProjectsLoadAction();
         TasksLoadAction({id: -1, name: "", tasks: []});
+        ModalWindowChangeTypeAction(0);
     }, []);
     
     return (
