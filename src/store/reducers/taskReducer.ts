@@ -37,21 +37,18 @@ export const tasksReducer = (state = initialState, action: TasksAction): TasksSt
             if (action.payload.task.underTaskFlag === -1){
                 tasks.filter(task => {
                     if (task.id === action.payload.task.id) {
-                        if (data.status) {
-                            if ((data.status === 0 || data.status === 1) && task.status === 0) {
-                                task.status = data.status
-                            }
+                        if (data.status !== undefined && data.status >= 0 ) {
                             if ((data.status === 1 || data.status === 2) && task.status === 1) {
-                                task.status = data.status
+                                
                                 if (data.status === 1 && task.workTimeStart === 0) {
                                     task.workTimeStart = Date.now();
                                 }
                             }
                             if (data.status === 2 && task.status === 2) {
-                                task.status = data.status
                                 if (data.status === 2 && task.endDate === null)
                                     task.endDate = Date.now();
                             }
+                            task.status = data.status
 
                         }
                         task.underTaskFlag = data.underTaskFlag !== undefined ? data.underTaskFlag : task.underTaskFlag;
@@ -70,21 +67,18 @@ export const tasksReducer = (state = initialState, action: TasksAction): TasksSt
                 if(task === undefined) return state;
                 task.underTask.filter(task=>{
                     if (task.id === action.payload.task.id) {
-                        if (data.status) {
-                            if ((data.status === 0 || data.status === 1) && task.status === 0) {
-                                task.status = data.status
-                            }
+                        if (data.status !== undefined && data.status >= 0 ) {
                             if ((data.status === 1 || data.status === 2) && task.status === 1) {
-                                task.status = data.status
+                                
                                 if (data.status === 1 && task.workTimeStart === 0) {
                                     task.workTimeStart = Date.now();
                                 }
                             }
                             if (data.status === 2 && task.status === 2) {
-                                task.status = data.status
                                 if (data.status === 2 && task.endDate === null)
                                     task.endDate = Date.now();
                             }
+                            task.status = data.status
 
                         }
                         task.underTaskFlag = data.underTaskFlag !== undefined ? data.underTaskFlag : task.underTaskFlag;

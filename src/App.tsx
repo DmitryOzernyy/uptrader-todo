@@ -8,11 +8,11 @@ import "./style/sass/main.sass";
 
 const router = createBrowserRouter([
     {
-      path: "/projects",
+      path: "/",
       element: <ProjectList />,
     },
     {
-        path: "/projects/:projectId",
+        path: "/projects:projectId",
         element: <TaskList />,
     },
 ]);

@@ -41,18 +41,6 @@
                             "text": "Здарова"
                         },
                         {
-                            "id": 2,
-                            "parent": 0,
-                            "author": "Larry",
-                            "text": "Я обосрался"
-                        },
-                        {
-                            "id": 3,
-                            "parent": 2,
-                            "author": "Foog",
-                            "text": "иди постирай штаны"
-                        },
-                        {
                             "id": 4,
                             "parent": -1,
                             "author": "Enjoy",

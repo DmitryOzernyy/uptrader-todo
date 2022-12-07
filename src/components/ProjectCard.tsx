@@ -12,7 +12,7 @@ const ProjectCard: React.FC<propsProjectCard> = ({project}) => {
     const navigate = useNavigate();
     const {ProjectDeleteAction, TasksLoadAction} = useAction();
     let projectCard;
-    let linkUrl = `/projects/${project.id}`;
+    let linkUrl = `/projects${project.id}`;
     let deleteButtonOver = false;
     return (
         <span onClick={()=> {
